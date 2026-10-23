@@ -27,7 +27,7 @@ export type QuoteDraft = {
   preferredContact: PreferredContact;
   country: string;
   consent: boolean;
-  company_website: string;
+  hp_x7: string;
 };
 
 type Status = 'editing' | 'sending' | 'success' | 'failed' | 'rate_limited';
@@ -56,7 +56,7 @@ function emptyDraft(services: string[]): QuoteDraft {
     preferredContact: 'whatsapp',
     country: 'Ghana',
     consent: false,
-    company_website: '',
+    hp_x7: '',
   };
 }
 
@@ -71,7 +71,7 @@ function readDraft(): Partial<QuoteDraft> | null {
 
 function writeDraft(data: QuoteDraft | null) {
   try {
-    if (data) sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...data, company_website: '' }));
+    if (data) sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...data, hp_x7: '' }));
     else sessionStorage.removeItem(DRAFT_KEY);
   } catch {
     // Storage can be unavailable (private mode); the form still works without drafts.
@@ -110,7 +110,7 @@ export function QuoteWizard({ initialServices = [] }: { initialServices?: Servic
   useEffect(() => {
     const draft = readDraft();
     if (draft) {
-      setData((d) => ({ ...d, ...draft, services: initialServices.length ? initialServices : (draft.services ?? d.services), company_website: '' }));
+      setData((d) => ({ ...d, ...draft, services: initialServices.length ? initialServices : (draft.services ?? d.services), hp_x7: '' }));
     }
     draftLoaded.current = true;
     // Only on mount: a later prop change shouldn't wipe answers.
@@ -251,8 +251,8 @@ export function QuoteWizard({ initialServices = [] }: { initialServices?: Servic
 
       {/* Honeypot: hidden from people; bots that fill it are silently ignored. */}
       <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor="company_website">Company website</label>
-        <input id="company_website" name="company_website" type="text" tabIndex={-1} autoComplete="off" value={data.company_website} onChange={(e) => update({ company_website: e.target.value })} />
+        <label htmlFor="hp_x7">Leave this field empty</label>
+        <input id="hp_x7" name="hp_x7" type="text" tabIndex={-1} autoComplete="off" value={data.hp_x7} onChange={(e) => update({ hp_x7: e.target.value })} />
       </div>
 
       {step === 1 && <ServiceStep data={data} errors={errors} update={update} />}

@@ -167,7 +167,8 @@ describe('QuoteWizard', () => {
 
   it('renders a hidden honeypot field', () => {
     const { container } = render(<QuoteWizard />);
-    const honeypot = container.querySelector('input[name="company_website"]') as HTMLInputElement;
+    const honeypot = container.querySelector('input[name="hp_x7"]') as HTMLInputElement;
+    expect(container.querySelector('input[name*="company"]')).toBeNull();
     expect(honeypot).not.toBeNull();
     expect(honeypot.tabIndex).toBe(-1);
     expect(honeypot.getAttribute('autocomplete')).toBe('off');

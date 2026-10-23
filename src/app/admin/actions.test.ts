@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
-  user: { id: 'admin' } as { id: string } | null,
+  user: { id: 'admin', email: 'Founder@PlexioHub.com' } as { id: string; email?: string } | null,
   updateQuote: vi.fn(),
   revalidatePath: vi.fn(),
 }));
@@ -20,7 +20,8 @@ vi.mock('@/lib/data/quotes', async (orig) => ({ ...(await orig<object>()), updat
 import { saveQuoteNotes, updateQuoteStatus } from './(protected)/actions';
 
 beforeEach(() => {
-  mocks.user = { id: 'admin' };
+  process.env.ADMIN_EMAIL = 'founder@plexiohub.com';
+  mocks.user = { id: 'admin', email: 'Founder@PlexioHub.com' };
   mocks.updateQuote.mockReset();
   mocks.revalidatePath.mockReset();
 });
@@ -35,6 +36,17 @@ describe('updateQuoteStatus', () => {
   it('rejects a status outside the five values', async () => {
     await expect(updateQuoteStatus('q1', 'deleted' as never)).rejects.toThrow('Invalid status');
     expect(mocks.updateQuote).not.toHaveBeenCalled();
+  });
+
+  it('rejects a signed-in user who is not the admin', async () => {
+    mocks.user = { id: 'stranger', email: 'someone@else.com' };
+    await expect(updateQuoteStatus('q1', 'won')).rejects.toThrow('REDIRECT:/admin/login');
+    expect(mocks.updateQuote).not.toHaveBeenCalled();
+  });
+
+  it('rejects everyone when ADMIN_EMAIL is not configured', async () => {
+    delete process.env.ADMIN_EMAIL;
+    await expect(updateQuoteStatus('q1', 'won')).rejects.toThrow('REDIRECT:/admin/login');
   });
 
   it('redirects to login when not signed in', async () => {

@@ -43,10 +43,14 @@ Never put the **secret** values in a variable starting with `NEXT_PUBLIC_`.
 
 ### 1. Supabase (free)
 1. Create a project at [supabase.com](https://supabase.com).
-2. Open **SQL Editor**, paste in the whole of [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) and run it. This creates the tables, security rules and image storage, and adds Palette Pleasers and the starter FAQs.
-3. Go to **Authentication → Sign In / Providers**, turn **off** "Allow new users to sign up". This matters: the security rules treat any signed-in user as the admin.
-4. Go to **Authentication → Users → Add user**. Create your admin login (email + password) and tick "Auto confirm".
-5. Copy the URL, anon key and service_role key into your env vars.
+2. Open **SQL Editor** and run, in order:
+   - [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql): tables, security rules, image storage, plus Palette Pleasers and the starter FAQs.
+   - [`supabase/migrations/0002_admin_only.sql`](supabase/migrations/0002_admin_only.sql): limits admin access to the emails in an `admins` table.
+3. Still in the SQL Editor, register your admin email: `insert into public.admins (email) values ('you@example.com');`
+4. Go to **Authentication → Sign In / Providers** and turn **off** "Allow new users to sign up".
+5. Go to **Authentication → Users → Add user**. Create your login with the **same email** (tick "Auto confirm").
+6. Set `ADMIN_EMAIL` to that same email; the admin pages check it too.
+7. Copy the URL, anon key and service_role key into your env vars.
 
 The free tier pauses a project after about a week with no activity. The daily `keep-alive` Netlify function prevents that, and emails you if the database ever can't be reached.
 
@@ -70,11 +74,17 @@ CallMeBot is free but not guaranteed. Email is the dependable backup, and every 
 ### Launch checklist
 - [ ] Submit a real quote on the live site: a row appears in admin, plus an email and a WhatsApp alert.
 - [ ] `/admin` while logged out redirects to the login page; logging in works; changing a status and saving notes persist.
+- [ ] Security check: with only the anon key, reading quote requests returns nothing, and sign-up is refused. In your browser console on the live site:
+  `const s = (await import('https://esm.sh/@supabase/supabase-js@2')).createClient('<SUPABASE_URL>', '<ANON_KEY>'); console.log(await s.from('quote_requests').select('*'), await s.auth.signUp({ email: 'test@example.com', password: 'Test-12345!' }))`
+  Expect an empty `data: []` for the first, and an error ("Signups not allowed") for the second.
+- [ ] The portfolio shows Palette Pleasers (if it's empty, the Supabase env vars are missing).
 - [ ] Add a project with an image in admin; it appears on the homepage and `/work`.
 - [ ] Lighthouse (mobile) on the homepage: Performance, SEO and Accessibility each 90+.
 - [ ] On a phone (or 360px wide): no sideways scrolling on `/`, `/quote`, a service page and `/work`.
 - [ ] In Netlify → Functions → `keep-alive`, run it once and confirm it succeeds.
 - [ ] Submit the sitemap (`/sitemap.xml`) in Google Search Console.
+
+Note: public pages are pre-built at deploy time from Supabase. If the project is paused when you deploy, the build fails. Restore it in the Supabase dashboard and redeploy.
 
 ## Content you'll want to replace
 - **Logo:** `src/components/layout/Logo.tsx` is a text wordmark. Swap in your SVG/PNG logo.

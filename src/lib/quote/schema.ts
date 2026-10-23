@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import { BUDGET_RANGES, PREFERRED_CONTACT, TIMELINES } from '@/config/budget';
 import { SERVICES, type ServiceSlug } from '@/config/services';
+import { normalizePhone } from '@/lib/whatsapp';
 
 const serviceValues: string[] = [...SERVICES.map((s) => s.slug), 'not-sure'];
 
 export const CONTACT_REQUIRED_MESSAGE = 'Please give a WhatsApp number or an email so we can reply.';
+export const INVALID_WHATSAPP_MESSAGE = 'Please enter a valid WhatsApp number, e.g. 024 123 4567.';
 
 const baseSchema = z.object({
   services: z
@@ -24,7 +26,7 @@ const baseSchema = z.object({
   country: z.string().trim().max(80).default('Ghana'),
   consent: z.literal(true, 'Please agree so we can contact you about your project.'),
   /** Honeypot: hidden from people, filled in by bots. */
-  company_website: z.string().optional(),
+  hp_x7: z.string().optional(),
 });
 
 type Data = Partial<Record<string, unknown>>;
@@ -35,6 +37,7 @@ function crossFieldErrors(data: Data): Record<string, string> {
   const whatsapp = typeof data.whatsapp === 'string' ? data.whatsapp.trim() : '';
   const email = typeof data.email === 'string' ? data.email.trim() : '';
   if (!whatsapp && !email) errors.whatsapp = CONTACT_REQUIRED_MESSAGE;
+  else if (whatsapp && !normalizePhone(whatsapp)) errors.whatsapp = INVALID_WHATSAPP_MESSAGE;
 
   const currency = data.budgetCurrency === 'USD' ? 'USD' : 'GHS';
   if (data.budgetRange && !(BUDGET_RANGES[currency] as readonly string[]).includes(String(data.budgetRange))) {

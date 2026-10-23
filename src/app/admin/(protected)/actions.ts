@@ -8,11 +8,16 @@ import { deleteProject, getAllProjects, getProjectById, isSlugTaken, upsertProje
 import { QUOTE_STATUSES, updateQuote, type QuoteStatus } from '@/lib/data/quotes';
 import { createServerClient } from '@/lib/supabase/server';
 
-/** Every admin action starts here: no signed-in admin, no access. */
+function isAdminEmail(email: string | undefined): boolean {
+  const admin = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  return Boolean(admin && email && email.trim().toLowerCase() === admin);
+}
+
+/** Every admin page and action starts here: only the signed-in user whose email is ADMIN_EMAIL gets in. */
 export async function requireAdmin() {
   const supabase = await createServerClient();
   const { data } = await supabase.auth.getUser();
-  if (!data.user) redirect('/admin/login');
+  if (!data.user || !isAdminEmail(data.user.email)) redirect('/admin/login');
   return data.user;
 }
 

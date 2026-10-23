@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { submitQuote, type SubmitDeps } from './submit';
+import { NOTIFY_TIMEOUT_MS, RATE_CHECK_TIMEOUT_MS, SAVE_TIMEOUT_MS, submitQuote, type SubmitDeps } from './submit';
 import { validQuote } from '@/test/fixtures';
 
 const NOW = new Date('2026-10-23T12:00:00Z');
@@ -29,7 +29,7 @@ describe('submitQuote', () => {
 
   it('honeypot: silently accepts and does nothing', async () => {
     const deps = makeDeps();
-    expect(await submitQuote({ ...validQuote, company_website: 'x' }, 'ip1', deps)).toEqual({ status: 'spam' });
+    expect(await submitQuote({ ...validQuote, hp_x7: 'x' }, 'ip1', deps)).toEqual({ status: 'spam' });
     expect(deps.save).not.toHaveBeenCalled();
     expect(deps.sendEmail).not.toHaveBeenCalled();
     expect(deps.sendWhatsApp).not.toHaveBeenCalled();
@@ -61,6 +61,36 @@ describe('submitQuote', () => {
     expect(vi.mocked(deps.sendEmail).mock.calls[0][0].subject.startsWith('NOT SAVED — ')).toBe(true);
     expect(vi.mocked(deps.sendWhatsApp).mock.calls[0][0].startsWith('NOT SAVED — copy from email.')).toBe(true);
     expect(deps.log).toHaveBeenCalled();
+  });
+
+  it('a save that hangs is treated as not saved and still notifies, within the time budget', async () => {
+    vi.useFakeTimers();
+    try {
+      const deps = makeDeps({ save: vi.fn(() => new Promise<{ id: string }>(() => {})) });
+      const pending = submitQuote(validQuote, 'ip1', deps);
+      await vi.advanceTimersByTimeAsync(SAVE_TIMEOUT_MS + 1);
+      expect(await pending).toEqual({ status: 'not_saved' });
+      expect(vi.mocked(deps.sendEmail).mock.calls[0][0].subject.startsWith('NOT SAVED — ')).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('a notifier that hangs does not hold up a saved request', async () => {
+    vi.useFakeTimers();
+    try {
+      const deps = makeDeps({ sendWhatsApp: vi.fn(() => new Promise<void>(() => {})) });
+      const pending = submitQuote(validQuote, 'ip1', deps);
+      await vi.advanceTimersByTimeAsync(NOTIFY_TIMEOUT_MS + 1);
+      expect(await pending).toEqual({ status: 'saved', id: 'q1' });
+      expect(deps.log).toHaveBeenCalledWith('WhatsApp notification failed', expect.any(Error));
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('keeps the worst-case total under 9 seconds', () => {
+    expect(RATE_CHECK_TIMEOUT_MS + SAVE_TIMEOUT_MS + NOTIFY_TIMEOUT_MS).toBeLessThan(9000);
   });
 
   it('notification failure does not fail the request', async () => {

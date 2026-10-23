@@ -9,6 +9,12 @@ describe('normalizePhone', () => {
     expect(normalizePhone('+233 24 123 4567')).toBe('233241234567');
     expect(normalizePhone('00233241234567')).toBe('233241234567');
   });
+  it('handles Ghanaian numbers written without the leading 0 or with a (0) trunk', () => {
+    expect(normalizePhone('24 123 4567')).toBe('233241234567');
+    expect(normalizePhone('+233 (0)24 123 4567')).toBe('233241234567');
+    expect(normalizePhone('233 024 123 4567')).toBe('233241234567');
+    expect(normalizePhone('053 982 1888')).toBe('233539821888');
+  });
   it('keeps other international numbers', () => {
     expect(normalizePhone('+44 7700 900123')).toBe('447700900123');
   });

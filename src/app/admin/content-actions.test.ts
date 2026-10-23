@@ -8,7 +8,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'admin' } } }) } }),
+  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'admin', email: 'founder@plexiohub.com' } } }) } }),
 }));
 vi.mock('next/navigation', () => ({ redirect: vi.fn() }));
 vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidatePath }));
@@ -30,6 +30,7 @@ function projectForm(over: Record<string, string> = {}) {
 }
 
 beforeEach(() => {
+  process.env.ADMIN_EMAIL = 'founder@plexiohub.com';
   Object.values(mocks).forEach((m) => m.mockReset());
   mocks.upsertProject.mockResolvedValue({ id: 'p1' });
 });

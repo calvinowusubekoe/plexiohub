@@ -26,6 +26,11 @@ describe('quoteSchema', () => {
     expect(quoteSchema.safeParse({ ...valid, services: ['hacking'] }).success).toBe(false);
     expect(quoteSchema.safeParse({ ...valid, services: [] }).success).toBe(false);
   });
+  it('rejects a WhatsApp value that is not a phone number', () => {
+    const r = quoteSchema.safeParse({ ...valid, whatsapp: 'call me' });
+    expect(r.success).toBe(false);
+    expect(validateStep(4, { ...valid, whatsapp: 'call me' }).whatsapp).toBe('Please enter a valid WhatsApp number, e.g. 024 123 4567.');
+  });
   it('rejects an invalid email', () => {
     expect(quoteSchema.safeParse({ ...valid, email: 'not-an-email' }).success).toBe(false);
   });

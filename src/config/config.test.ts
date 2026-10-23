@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { SERVICES, getService, isServiceSlug } from './services';
 import { BUDGET_RANGES, TIMELINES, PREFERRED_CONTACT } from './budget';
 import { content } from './content';
+import { ICONS } from '@/components/ui/Icon';
 
 describe('services config', () => {
   it('lists the six services in spec order', () => {
@@ -18,6 +19,11 @@ describe('services config', () => {
       expect(s.questions.length).toBeGreaterThan(0);
       expect(s.features.length).toBeGreaterThan(0);
     });
+  });
+  it('uses known icon names everywhere', () => {
+    for (const icon of [...SERVICES.map((s) => s.icon), ...content.problems.map((p) => p.icon), ...content.whyUs.map((w) => w.icon)]) {
+      expect(ICONS).toHaveProperty(icon);
+    }
   });
   it('validates slugs', () => {
     expect(isServiceSlug('ecommerce')).toBe(true);

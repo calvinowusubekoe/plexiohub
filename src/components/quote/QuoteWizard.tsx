@@ -1,5 +1,6 @@
 'use client';
 
+import { CheckCircle2 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { BudgetCurrency, PreferredContact } from '@/config/budget';
 import type { ServiceSlug } from '@/config/services';
@@ -185,7 +186,9 @@ export function QuoteWizard({ initialServices = [] }: { initialServices?: Servic
   if (status === 'success') {
     return (
       <div className="rounded-3xl bg-white p-8 text-center shadow-sm sm:p-12" role="status">
-        <div className="text-5xl" aria-hidden>🎉</div>
+        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-green-50 text-green-600 ring-1 ring-green-100">
+          <CheckCircle2 className="h-7 w-7" strokeWidth={1.75} aria-hidden />
+        </span>
         <h2 ref={resultRef} tabIndex={-1} className="mt-4 scroll-mt-24 text-2xl font-bold focus:outline-none">Thanks, we&apos;ll get back to you within 24 hours</h2>
         <p className="mt-2 text-navy/70">We&apos;ve received your project details. Need us sooner? Message us on WhatsApp.</p>
         {wa && (

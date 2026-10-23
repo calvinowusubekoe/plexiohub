@@ -27,7 +27,8 @@ describe('Footer', () => {
   it('shows the tagline, location line, privacy link and all service links', () => {
     render(<Footer />);
     expect(screen.getByText('We Build. You Grow.')).toBeInTheDocument();
-    expect(screen.getByText('Based in Ghana 🇬🇭 · Serving businesses worldwide 🌍')).toBeInTheDocument();
+    expect(screen.getByText('Based in Ghana · Serving businesses worldwide')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /WhatsApp: \+233 53 982 1888/ }).getAttribute('href')).toMatch(/^https:\/\/wa\.me\/233539821888/);
     expect(screen.getByRole('link', { name: 'Privacy Policy' })).toHaveAttribute('href', '/privacy');
     for (const s of SERVICES) {
       expect(screen.getByRole('link', { name: s.name })).toHaveAttribute('href', `/services/${s.slug}`);

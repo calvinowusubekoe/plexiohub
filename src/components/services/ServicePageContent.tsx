@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { Check } from 'lucide-react';
+import { IconTile } from '@/components/ui/Icon';
 import type { Service } from '@/config/services';
 import { site } from '@/config/site';
 import type { Project } from '@/lib/data/projects';
@@ -17,7 +19,7 @@ function List({ title, items }: { title: string; items: string[] }) {
       <ul className="mt-4 space-y-3">
         {items.map((item) => (
           <li key={item} className="flex gap-3 text-navy/80">
-            <span aria-hidden className="mt-0.5 text-brand">✓</span>
+            <Check className="mt-1 h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} aria-hidden />
             <span>{item}</span>
           </li>
         ))}
@@ -38,7 +40,9 @@ export function ServicePageContent({ service, projects }: { service: Service; pr
           <p className="text-sm font-semibold text-brand">
             <Link href="/#services" className="hover:underline">Services</Link> / {service.name}
           </p>
-          <div className="mt-4 text-4xl" aria-hidden>{service.icon}</div>
+          <div className="mt-6">
+            <IconTile name={service.icon} />
+          </div>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">{service.headline}</h1>
           <p className="mt-5 max-w-2xl text-lg text-navy/75">{service.summary}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">

@@ -1,3 +1,5 @@
+import type { IconName } from '@/components/ui/Icon';
+
 export type ServiceSlug =
   | 'website-design'
   | 'whatsapp-chatbots'
@@ -18,7 +20,7 @@ export type Service = {
   name: string;
   shortName: string;
   filterLabel: string;
-  icon: string;
+  icon: IconName;
   summary: string;
   headline: string;
   forWho: string;
@@ -36,7 +38,7 @@ export const SERVICES: Service[] = [
     name: 'Website Design & Development',
     shortName: 'Website Design',
     filterLabel: 'Websites',
-    icon: '💻',
+    icon: 'website',
     summary: 'Modern, mobile-friendly websites that help customers find you, trust you and contact you.',
     headline: 'A website that brings you customers, not just visitors',
     forWho:
@@ -70,7 +72,7 @@ export const SERVICES: Service[] = [
     name: 'WhatsApp Chatbots & AI Automation',
     shortName: 'WhatsApp Chatbots',
     filterLabel: 'WhatsApp & AI',
-    icon: '🤖',
+    icon: 'chatbot',
     summary: 'A WhatsApp assistant that answers customers instantly, takes orders and books appointments, day and night.',
     headline: 'Answer every customer on WhatsApp, even while you sleep',
     forWho:
@@ -103,7 +105,7 @@ export const SERVICES: Service[] = [
     name: 'Business Process Automation',
     shortName: 'Automation',
     filterLabel: 'Automation',
-    icon: '⚙️',
+    icon: 'automation',
     summary: 'Let software handle the repetitive work: records, reminders, reports and follow-ups.',
     headline: 'Spend less time on admin and more time growing',
     forWho:
@@ -135,7 +137,7 @@ export const SERVICES: Service[] = [
     name: 'E-commerce Solutions',
     shortName: 'E-commerce',
     filterLabel: 'E-commerce',
-    icon: '🛒',
+    icon: 'ecommerce',
     summary: 'Online shops that make it easy to browse, order and pay, including Mobile Money.',
     headline: 'Sell online, day and night',
     forWho: 'Businesses selling products on Instagram, WhatsApp or in-store that want a proper online shop.',
@@ -166,7 +168,7 @@ export const SERVICES: Service[] = [
     name: 'IT & Tech Support',
     shortName: 'IT Support',
     filterLabel: 'IT Support',
-    icon: '🛠️',
+    icon: 'support',
     summary: 'Reliable help with computers, networks, email and software, so your business keeps running.',
     headline: 'Tech problems sorted, so you can get back to business',
     forWho: 'Businesses without an in-house IT person who need dependable help when technology lets them down.',
@@ -198,7 +200,7 @@ export const SERVICES: Service[] = [
     name: 'Graphic Design',
     shortName: 'Graphic Design',
     filterLabel: 'Graphic Design',
-    icon: '🎨',
+    icon: 'design',
     summary: 'Logos, flyers, social media graphics and branding that make your business look professional.',
     headline: 'Designs that make people stop and look',
     forWho: 'Businesses that need a logo, a fresh brand look, or eye-catching flyers and social media posts.',

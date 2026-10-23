@@ -26,7 +26,7 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
             </Link>
             <Link href="/admin/projects" className="hover:text-brand">Projects</Link>
             <Link href="/admin/faqs" className="hover:text-brand">FAQs</Link>
-            <Link href="/" target="_blank" className="text-navy/70 hover:text-brand">View site ↗</Link>
+            <Link href="/" target="_blank" className="text-navy/70 hover:text-brand">View site</Link>
             <form action={signOut}>
               <button type="submit" className="text-navy/70 hover:text-red-600">Sign out</button>
             </form>

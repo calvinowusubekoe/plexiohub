@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { BUDGET_RANGES, TIMELINES } from '@/config/budget';
 import { SERVICES, getService, type ServiceQuestion } from '@/config/services';
 import { CheckCard, FieldError, inputClass } from './fields';
+import { HelpCircle } from 'lucide-react';
+import { Icon, type IconName } from '@/components/ui/Icon';
 import type { QuoteDraft } from './QuoteWizard';
 
 type StepProps = {
@@ -15,7 +17,10 @@ function toggle(list: string[], value: string, on: boolean): string[] {
 }
 
 export function ServiceStep({ data, errors, update }: StepProps) {
-  const options = [...SERVICES.map((s) => ({ value: s.slug as string, label: `${s.icon} ${s.name}` })), { value: 'not-sure', label: '🤔 Not sure yet' }];
+  const options: { value: string; label: string; icon: IconName | null }[] = [
+    ...SERVICES.map((s) => ({ value: s.slug as string, label: s.name, icon: s.icon })),
+    { value: 'not-sure', label: 'Not sure yet', icon: null },
+  ];
   return (
     <fieldset aria-describedby={errors.services ? 'services-error' : undefined}>
       <legend className="text-lg font-semibold">What do you need help with?</legend>
@@ -29,7 +34,10 @@ export function ServiceStep({ data, errors, update }: StepProps) {
             checked={data.services.includes(o.value)}
             onChange={(on) => update({ services: toggle(data.services, o.value, on) })}
           >
-            {o.label}
+            <span className="flex items-center gap-2.5">
+              {o.icon ? <Icon name={o.icon} className="h-5 w-5 text-brand" /> : <HelpCircle className="h-5 w-5 text-brand" strokeWidth={1.75} aria-hidden />}
+              {o.label}
+            </span>
           </CheckCard>
         ))}
       </div>
@@ -108,7 +116,10 @@ export function ProjectStep({ data, errors, update }: StepProps) {
       {services.map((s) => (
         <section key={s.slug} className="space-y-4 rounded-2xl bg-surface p-5">
           <h3 className="font-semibold">
-            {s.icon} {s.name}
+            <span className="flex items-center gap-2">
+              <Icon name={s.icon} className="h-5 w-5 text-brand" />
+              {s.name}
+            </span>
           </h3>
           {s.questions.map((q) => (
             <QuestionField

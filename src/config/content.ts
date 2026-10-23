@@ -1,3 +1,5 @@
+import type { IconName } from '@/components/ui/Icon';
+
 export const content = {
   hero: {
     headline: 'Grow your business without the tech headache',
@@ -6,10 +8,10 @@ export const content = {
       'PlexioHub builds websites, online shops, WhatsApp chatbots and automation for small and growing businesses — at prices that make sense.',
   },
   problems: [
-    { icon: '🔍', title: 'Customers cannot find your business online.', fix: 'We build a website that shows up on Google and turns visitors into enquiries.' },
-    { icon: '📋', title: 'You handle too many tasks manually.', fix: 'We automate replies, orders, reminders and reports so you get hours back.' },
-    { icon: '🕰️', title: 'Your current website looks outdated.', fix: 'We redesign it to look modern, load fast and work beautifully on phones.' },
-    { icon: '🛠️', title: 'Your business needs reliable technical support.', fix: "We're one call or WhatsApp message away whenever tech gets in the way." },
+    { icon: 'not-found', title: 'Customers cannot find your business online.', fix: 'We build a website that shows up on Google and turns visitors into enquiries.' },
+    { icon: 'manual', title: 'You handle too many tasks manually.', fix: 'We automate replies, orders, reminders and reports so you get hours back.' },
+    { icon: 'outdated', title: 'Your current website looks outdated.', fix: 'We redesign it to look modern, load fast and work beautifully on phones.' },
+    { icon: 'helpdesk', title: 'Your business needs reliable technical support.', fix: "We're one call or WhatsApp message away whenever tech gets in the way." },
   ],
   process: [
     { title: 'Talk', line: 'Tell us about your business and what you want to achieve.' },
@@ -20,11 +22,11 @@ export const content = {
     { title: 'Support', line: 'We stay with you after launch for fixes, updates and growth.' },
   ],
   whyUs: [
-    { icon: '💰', title: 'Affordable solutions', line: 'Professional work at prices that fit growing businesses.' },
-    { icon: '🤝', title: 'Personalized service', line: 'You work directly with the person building your project.' },
-    { icon: '🧠', title: 'Practical technical expertise', line: 'Technology chosen to solve real business problems, not to impress.' },
-    { icon: '💬', title: 'Transparent communication', line: 'Clear quotes, honest timelines and regular updates.' },
-    { icon: '🔁', title: 'Ongoing support', line: "We don't disappear after launch. We're here as you grow." },
+    { icon: 'affordable', title: 'Affordable solutions', line: 'Professional work at prices that fit growing businesses.' },
+    { icon: 'personal', title: 'Personalized service', line: 'You work directly with the person building your project.' },
+    { icon: 'expertise', title: 'Practical technical expertise', line: 'Technology chosen to solve real business problems, not to impress.' },
+    { icon: 'transparent', title: 'Transparent communication', line: 'Clear quotes, honest timelines and regular updates.' },
+    { icon: 'ongoing', title: 'Ongoing support', line: "We don't disappear after launch. We're here as you grow." },
   ],
   seedFaqs: [
     {
@@ -56,4 +58,8 @@ export const content = {
       answer: 'Yes. We can improve, fix or fully redesign an existing website. Share the link in your quote request and we will take a look.',
     },
   ],
-} as const;
+} as const satisfies {
+  problems: readonly { icon: IconName; title: string; fix: string }[];
+  whyUs: readonly { icon: IconName; title: string; line: string }[];
+  [key: string]: unknown;
+};

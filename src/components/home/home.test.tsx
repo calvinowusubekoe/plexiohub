@@ -3,6 +3,8 @@ import { render, screen, within } from '@testing-library/react';
 import { HomeSections } from './HomeSections';
 import { SERVICES } from '@/config/services';
 
+const EMOJI = /\p{Extended_Pictographic}/u;
+
 const faqs = [{ id: 'f1', question: 'How long does it take?', answer: '1–3 weeks.', sortOrder: 0 }];
 
 describe('HomeSections', () => {
@@ -24,6 +26,12 @@ describe('HomeSections', () => {
     render(<HomeSections projects={[]} faqs={faqs} />);
     const links = screen.getAllByRole('link', { name: /learn more/i });
     expect(links.map((l) => l.getAttribute('href'))).toEqual(SERVICES.map((s) => `/services/${s.slug}`));
+  });
+
+  it('uses icons, not emoji', () => {
+    const { container } = render(<HomeSections projects={[]} faqs={faqs} />);
+    expect(container.textContent).not.toMatch(EMOJI);
+    expect(container.querySelectorAll('svg.lucide').length).toBeGreaterThanOrEqual(15);
   });
 
   it('renders FAQs as native disclosure widgets', () => {

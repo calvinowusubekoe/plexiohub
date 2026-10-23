@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ArrowUpRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -70,7 +71,7 @@ export default async function ProjectPage({ params }: Props) {
           <h2 className="text-xl font-semibold">Key features</h2>
           <ul className="mt-3 grid gap-2 sm:grid-cols-2">
             {project.features.map((f) => (
-              <li key={f} className="flex gap-2 text-navy/80"><span aria-hidden className="text-brand">✓</span>{f}</li>
+              <li key={f} className="flex gap-2 text-navy/80"><Check className="mt-1 h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} aria-hidden />{f}</li>
             ))}
           </ul>
         </section>
@@ -89,7 +90,7 @@ export default async function ProjectPage({ params }: Props) {
       <div className="mt-12 flex flex-wrap items-center gap-4 rounded-2xl bg-surface p-6">
         {project.liveUrl && (
           <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-navy/20 bg-white px-5 py-3 font-semibold hover:border-brand">
-            View live site ↗
+            <span className="inline-flex items-center gap-1.5">View live site <ArrowUpRight className="h-4 w-4" aria-hidden /></span>
           </a>
         )}
         <Link href={firstService ? `/quote?service=${firstService}` : '/quote'} className="rounded-lg bg-brand px-5 py-3 font-semibold text-white hover:bg-brand-dark">

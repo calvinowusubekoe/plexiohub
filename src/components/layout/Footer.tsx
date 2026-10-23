@@ -8,7 +8,7 @@ export function Footer() {
   const wa = waLink(site.whatsappNumber);
   return (
     <footer className="bg-navy text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:px-8 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-3">
           <Logo light />
           <p className="font-semibold">{site.tagline}</p>
@@ -74,7 +74,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 pb-20 text-xs text-white/75 sm:flex-row sm:justify-between sm:pb-5">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 sm:px-6 lg:px-8 pb-20 text-xs text-white/75 sm:flex-row sm:justify-between sm:pb-5">
           <p>{site.locationLine}</p>
           <p>
             © {new Date().getFullYear()} PlexioHub ·{' '}

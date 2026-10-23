@@ -36,14 +36,14 @@ export function ServicePageContent({ service, projects }: { service: Service; pr
   return (
     <>
       <section className="bg-surface">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
           <p className="text-sm font-semibold text-brand">
             <Link href="/#services" className="hover:underline">Services</Link> / {service.name}
           </p>
           <div className="mt-6">
             <IconTile name={service.icon} />
           </div>
-          <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">{service.headline}</h1>
+          <h1 className="mt-3 max-w-3xl text-balance text-[2rem] font-extrabold leading-tight tracking-tight sm:text-5xl">{service.headline}</h1>
           <p className="mt-5 max-w-2xl text-lg text-navy/75">{service.summary}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <Link href={quoteHref} className="rounded-lg bg-brand px-6 py-3.5 font-semibold text-white shadow-md shadow-brand/30 hover:bg-brand-dark">
@@ -58,7 +58,7 @@ export function ServicePageContent({ service, projects }: { service: Service; pr
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-bold">Who it&apos;s for</h2>
           <p className="mt-3 text-lg text-navy/75">{service.forWho}</p>
@@ -72,7 +72,7 @@ export function ServicePageContent({ service, projects }: { service: Service; pr
 
       {related.length > 0 && (
         <section className="bg-surface">
-          <div className="mx-auto max-w-6xl px-4 py-14">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14">
             <h2 className="mb-6 text-2xl font-bold">Related work</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p) => (
@@ -83,9 +83,9 @@ export function ServicePageContent({ service, projects }: { service: Service; pr
         </section>
       )}
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14">
         <div className="rounded-3xl bg-navy p-8 text-white sm:p-12">
-          <h2 className="text-2xl font-bold sm:text-3xl">Ready to get started?</h2>
+          <h2 className="text-balance text-2xl font-bold sm:text-3xl">Ready to get started?</h2>
           <p className="mt-2 text-white/75">Tell us about your project and we&apos;ll reply with a clear quote, usually within 24 hours.</p>
           <Link href={quoteHref} className="mt-6 inline-block rounded-lg bg-white px-6 py-3.5 font-semibold text-navy hover:bg-blue-50">
             Get a Quote for this service

@@ -33,7 +33,7 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
           </nav>
         </div>
       </header>
-      <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">{children}</main>
     </>
   );
 }

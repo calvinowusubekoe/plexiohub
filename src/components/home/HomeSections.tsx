@@ -29,7 +29,7 @@ function SectionHeading({
   return (
     <div className={`mb-12 max-w-2xl ${center ? 'mx-auto text-center' : ''}`}>
       <p className={`text-sm font-semibold ${light ? 'text-blue-200' : 'text-brand'}`}>{eyebrow}</p>
-      <h2 className={`mt-2 text-3xl font-bold tracking-tight sm:text-4xl ${light ? 'text-white' : ''}`}>{title}</h2>
+      <h2 className={`mt-2 text-balance text-[1.75rem] font-bold leading-tight tracking-tight sm:text-4xl ${light ? 'text-white' : ''}`}>{title}</h2>
       {intro && <p className={`mt-4 text-lg leading-relaxed ${light ? 'text-white/75' : 'text-navy/70'}`}>{intro}</p>}
     </div>
   );
@@ -49,13 +49,13 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
           aria-hidden
           className="pointer-events-none absolute -right-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-blue-100/70 blur-3xl"
         />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:py-20 lg:grid-cols-[1.1fr_1fr]">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:px-8">
           <div>
             <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1 text-xs font-semibold text-brand-dark">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden />
               Digital solutions for growing businesses
             </p>
-            <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+            <h1 className="text-balance text-[2.15rem] font-extrabold leading-[1.12] tracking-tight sm:text-5xl xl:text-[3.4rem]">
               {before}
               <span className="text-brand">{content.hero.highlight}</span>
             </h1>
@@ -86,8 +86,8 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
             </p>
           </div>
 
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 sm:aspect-[5/4] lg:aspect-[4/5]">
+          <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 sm:aspect-[5/4] lg:aspect-[4/5]">
               <Image
                 src="/images/hero.jpg"
                 alt="A shop owner serving a customer in her store"
@@ -112,7 +112,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* Problems */}
       <section id="problems" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <SectionHeading
             eyebrow="Problems we solve"
             title="Sound familiar?"
@@ -135,7 +135,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* Services */}
       <section id="services" className="scroll-mt-20 bg-surface">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <SectionHeading
             eyebrow="Services"
             title="What we build for you"
@@ -166,11 +166,11 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* Process */}
       <section id="how-we-work" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <SectionHeading eyebrow="How we work" title="Simple, clear and with you all the way" />
           <div className="relative">
-            <div aria-hidden className="absolute left-5 right-5 top-5 hidden h-px bg-slate-200 lg:block" />
-            <ol className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+            <div aria-hidden className="absolute left-5 right-5 top-5 hidden h-px bg-slate-200 xl:block" />
+            <ol className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-6">
               {content.process.map((step, i) => (
                 <li key={step.title} className="relative">
                   <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-blue-200 bg-white text-sm font-bold text-brand">
@@ -187,7 +187,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* Work */}
       <section id="work" className="scroll-mt-20 bg-surface">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <SectionHeading
             eyebrow="Our work"
             title="Projects we've built"
@@ -199,9 +199,9 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* Why us */}
       <section id="why-us" className="scroll-mt-20 bg-navy text-white">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <SectionHeading eyebrow="Why PlexioHub" title="Why businesses choose us" light />
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-8">
             {content.whyUs.map((w) => (
               <div key={w.title}>
                 <IconTile name={w.icon} dark />
@@ -215,7 +215,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* FAQ */}
       <section id="faq" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-20 sm:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <SectionHeading eyebrow="FAQ" title="Questions we often get" center />
           <FaqList faqs={faqs} />
         </div>
@@ -223,7 +223,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
       {/* Contact */}
       <section id="contact" className="scroll-mt-20 bg-surface">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:py-24 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-2 lg:px-8">
           <div>
             <SectionHeading
               eyebrow="Contact"

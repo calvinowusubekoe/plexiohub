@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: Props) {
   const firstService = project.serviceTags[0];
 
   return (
-    <article className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
+    <article className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
       <p className="text-sm font-semibold text-brand">
         <Link href="/work" className="hover:underline">Our work</Link> / {project.title}
       </p>

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import Script from 'next/script';
 import { site } from '@/config/site';
 import { HOME_DESCRIPTION, HOME_TITLE } from '@/lib/seo/metadata';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat', display: 'swap' });
 const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={montserrat.variable}>
       <body className="font-sans antialiased">
         {children}
         {umamiId && (

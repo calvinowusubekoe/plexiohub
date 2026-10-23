@@ -237,7 +237,7 @@ export function QuoteWizard({ initialServices = [] }: { initialServices?: Servic
         if (step === 4) submit();
         else next();
       }}
-      className="rounded-3xl bg-white p-6 shadow-sm sm:p-10"
+      className="rounded-3xl bg-white p-5 shadow-sm sm:p-10"
     >
       <div className="mb-8">
         <p className="text-sm font-semibold text-brand">Step {step} of 4</p>

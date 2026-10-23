@@ -15,7 +15,7 @@ export default async function QuotePage({ searchParams }: Props) {
   const initialServices = parseServiceParam((await searchParams).service);
   return (
     <section className="bg-surface">
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Get a Quote</h1>
         <p className="mt-2 mb-8 text-lg text-navy/70">Answer a few quick questions. It takes about 2 minutes.</p>
         <QuoteWizard initialServices={initialServices} />

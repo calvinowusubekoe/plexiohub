@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 import { PortfolioGrid } from '@/components/work/PortfolioGrid';
 import { getPublishedProjects } from '@/lib/data/projects';
+import { pageMetadata } from '@/lib/seo/metadata';
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Our Work',
-  description: 'Websites, WhatsApp chatbots, automation, e-commerce and design projects built by PlexioHub.',
-};
+  description: 'Website design, WhatsApp chatbot, automation, e-commerce and graphic design projects built by PlexioHub in Ghana.',
+  path: '/work',
+});
 
 export default async function WorkPage() {
   const projects = await getPublishedProjects();

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getService } from '@/config/services';
 import { getProjectBySlug, getPublishedProjects } from '@/lib/data/projects';
+import { pageMetadata } from '@/lib/seo/metadata';
 
 export const revalidate = 300;
 
@@ -17,11 +18,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = await getProjectBySlug((await params).slug);
   if (!project) return {};
-  return {
-    title: project.title,
-    description: project.summary,
-    openGraph: project.coverImageUrl ? { images: [project.coverImageUrl] } : undefined,
-  };
+  return pageMetadata({ title: project.title, description: project.summary, path: `/work/${project.slug}`, image: project.coverImageUrl ?? undefined });
 }
 
 export default async function ProjectPage({ params }: Props) {

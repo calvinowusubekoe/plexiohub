@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { QuoteWizard } from '@/components/quote/QuoteWizard';
 import { parseServiceParam } from '@/components/quote/parseServiceParam';
+import { pageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Get a Quote',
-  description: 'Tell PlexioHub about your project and get a clear, honest quote, usually within 24 hours.',
-};
+  description: 'Tell PlexioHub about your website, WhatsApp chatbot, automation or design project and get a clear quote, usually within 24 hours.',
+  path: '/quote',
+});
 
 type Props = { searchParams: Promise<{ service?: string | string[] }> };
 

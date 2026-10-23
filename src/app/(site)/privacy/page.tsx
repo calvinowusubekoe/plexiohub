@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { site } from '@/config/site';
+import { pageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Privacy Policy',
   description: 'How PlexioHub collects, uses and protects the information you share with us.',
-};
+  path: '/privacy',
+});
 
 export default function PrivacyPage() {
   return (

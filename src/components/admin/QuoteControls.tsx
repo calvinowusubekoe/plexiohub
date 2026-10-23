@@ -48,7 +48,7 @@ export function QuoteControls({ id, status, notes }: { id: string; status: Quote
           Save notes
         </button>
       </div>
-      <p aria-live="polite" className="text-sm text-navy/60">{pending ? 'Saving…' : message}</p>
+      <p aria-live="polite" className="text-sm text-navy/70">{pending ? 'Saving…' : message}</p>
     </div>
   );
 }

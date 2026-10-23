@@ -13,7 +13,7 @@ export function PortfolioGrid({ projects, limit }: { projects: Project[]; limit?
     return (
       <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
         <p className="font-semibold">New projects coming soon</p>
-        <p className="mt-1 text-sm text-navy/60">We&apos;re adding recent work here. Ask us on WhatsApp for examples.</p>
+        <p className="mt-1 text-sm text-navy/70">We&apos;re adding recent work here. Ask us on WhatsApp for examples.</p>
       </div>
     );
   }

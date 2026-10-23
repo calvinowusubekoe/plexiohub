@@ -55,7 +55,7 @@ export function RequestDetail({ quote, children }: { quote: QuoteRow; children?:
           .filter(([, v]) => v && String(v).trim())
           .map(([k, v]) => (
             <div key={k} className="grid gap-1 p-4 sm:grid-cols-[200px_1fr]">
-              <dt className="text-sm text-navy/60">{k}</dt>
+              <dt className="text-sm text-navy/70">{k}</dt>
               <dd className="whitespace-pre-wrap break-words">{v}</dd>
             </div>
           ))}

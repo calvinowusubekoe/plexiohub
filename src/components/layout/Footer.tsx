@@ -18,7 +18,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/60">Services</h2>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/75">Services</h2>
           <ul className="space-y-2 text-sm">
             {SERVICES.map((s) => (
               <li key={s.slug}>
@@ -31,7 +31,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/60">Contact</h2>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/75">Contact</h2>
           <ul className="space-y-2 text-sm text-white/85">
             {wa && (
               <li>
@@ -54,7 +54,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/60">Follow us</h2>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/75">Follow us</h2>
           <ul className="space-y-2 text-sm">
             {site.socials.map((s) => (
               <li key={s.label}>
@@ -74,7 +74,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 pb-20 text-xs text-white/60 sm:flex-row sm:justify-between sm:pb-5">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 pb-20 text-xs text-white/75 sm:flex-row sm:justify-between sm:pb-5">
           <p>{site.locationLine}</p>
           <p>
             © {new Date().getFullYear()} PlexioHub ·{' '}

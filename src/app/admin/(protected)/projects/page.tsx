@@ -16,14 +16,14 @@ export default async function ProjectsAdminPage() {
         </Link>
       </div>
       {projects.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-navy/60">No projects yet.</p>
+        <p className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-navy/70">No projects yet.</p>
       ) : (
         <ul className="divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 bg-white">
           {projects.map((p, i) => (
             <li key={p.id} className="flex flex-wrap items-center justify-between gap-3 p-4">
               <div>
                 <Link href={`/admin/projects/${p.id}`} className="font-semibold hover:text-brand">{p.title}</Link>
-                <p className="text-xs text-navy/60">
+                <p className="text-xs text-navy/70">
                   /work/{p.slug} · {p.kind === 'concept' ? 'Concept' : 'Client'} · {p.published ? 'Published' : 'Hidden'}
                 </p>
               </div>

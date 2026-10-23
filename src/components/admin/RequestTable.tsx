@@ -30,7 +30,7 @@ export function RequestTable({ rows }: { rows: QuoteRow[] }) {
       </div>
 
       {shown.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-navy/60">
+        <p className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-navy/70">
           {rows.length === 0 ? 'No quote requests yet.' : 'No requests with this status.'}
         </p>
       ) : (
@@ -41,13 +41,13 @@ export function RequestTable({ rows }: { rows: QuoteRow[] }) {
                 <Link href={`/admin/requests/${r.id}`} className="font-semibold text-navy hover:text-brand">
                   {r.name}
                 </Link>
-                {r.business_name && <p className="text-xs text-navy/60">{r.business_name}</p>}
+                {r.business_name && <p className="text-xs text-navy/70">{r.business_name}</p>}
               </div>
               <p className="text-sm text-navy/75">{serviceNames(r.services)}</p>
               <p className="text-sm text-navy/75">{r.budget_range ?? '—'}</p>
               <div className="flex items-center gap-3 sm:justify-end">
                 <StatusBadge status={r.status} />
-                <time dateTime={r.created_at} className="text-xs text-navy/50">
+                <time dateTime={r.created_at} className="text-xs text-navy/70">
                   {timeAgo(r.created_at)}
                 </time>
               </div>

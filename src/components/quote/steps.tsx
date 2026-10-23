@@ -19,7 +19,7 @@ export function ServiceStep({ data, errors, update }: StepProps) {
   return (
     <fieldset aria-describedby={errors.services ? 'services-error' : undefined}>
       <legend className="text-lg font-semibold">What do you need help with?</legend>
-      <p className="mt-1 text-sm text-navy/60">Choose one or more.</p>
+      <p className="mt-1 text-sm text-navy/70">Choose one or more.</p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {options.map((o) => (
           <CheckCard
@@ -87,7 +87,7 @@ export function ProjectStep({ data, errors, update }: StepProps) {
         <label htmlFor="goals" className="text-lg font-semibold">
           What do you want this to achieve?
         </label>
-        <p className="mt-1 text-sm text-navy/60">For example: &quot;Get more customers from Google&quot; or &quot;Stop answering the same WhatsApp questions&quot;.</p>
+        <p className="mt-1 text-sm text-navy/70">For example: &quot;Get more customers from Google&quot; or &quot;Stop answering the same WhatsApp questions&quot;.</p>
         <textarea id="goals" rows={4} maxLength={2000} className={inputClass} value={data.goals} onChange={(e) => update({ goals: e.target.value })} />
         <FieldError id="goals-error" message={errors.goals} />
       </div>
@@ -209,7 +209,7 @@ export function DetailsStep({ data, errors, update }: StepProps) {
         {text('whatsapp', 'WhatsApp number', { type: 'tel', autoComplete: 'tel', inputMode: 'tel' })}
         {text('email', 'Email', { type: 'email', autoComplete: 'email', inputMode: 'email' })}
       </div>
-      <p className="-mt-2 text-sm text-navy/60">Give us at least one: a WhatsApp number or an email.</p>
+      <p className="-mt-2 text-sm text-navy/70">Give us at least one: a WhatsApp number or an email.</p>
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="preferredContact" className="text-sm font-medium">

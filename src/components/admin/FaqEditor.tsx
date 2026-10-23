@@ -80,7 +80,7 @@ export function FaqEditor({ faqs }: { faqs: Faq[] }) {
             )}
           </li>
         ))}
-        {faqs.length === 0 && <li className="p-8 text-center text-navy/60">No questions yet.</li>}
+        {faqs.length === 0 && <li className="p-8 text-center text-navy/70">No questions yet.</li>}
       </ul>
 
       <div className="rounded-xl border border-slate-200 bg-white p-5">

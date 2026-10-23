@@ -46,8 +46,8 @@ export function ServicePageContent({ service, projects }: { service: Service; pr
               Get a Quote for this service
             </Link>
             {wa && (
-              <a href={wa} target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" className="inline-flex items-center gap-2 font-semibold text-green-700 hover:underline">
-                <WhatsAppIcon /> Ask on WhatsApp
+              <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-semibold text-green-700 hover:underline">
+                <WhatsAppIcon /> Chat with us on WhatsApp
               </a>
             )}
           </div>

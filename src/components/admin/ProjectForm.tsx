@@ -192,7 +192,7 @@ export function ProjectForm({ project }: { project?: Project }) {
         </div>
       </div>
       <Err message={errors.images} />
-      {uploading && <p className="text-sm text-navy/60">Uploading…</p>}
+      {uploading && <p className="text-sm text-navy/70">Uploading…</p>}
 
       <label className="flex items-center gap-2 font-medium">
         <input type="checkbox" name="published" defaultChecked={project?.published ?? true} /> Published (visible on the website)

@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
         <p className="text-xl font-bold">
-          Plexio<span className="text-brand">hub</span> <span className="font-medium text-navy/50">Admin</span>
+          Plexio<span className="text-brand">hub</span> <span className="font-medium text-navy/70">Admin</span>
         </p>
         {isSupabaseConfigured() ? (
           <LoginForm />

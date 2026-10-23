@@ -31,7 +31,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
       <section className="bg-surface">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.15fr_1fr]">
           <div>
-            <p className="mb-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-brand">
+            <p className="mb-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-brand-dark">
               Websites · WhatsApp chatbots · Automation · Design
             </p>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
@@ -47,7 +47,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
                 View Our Work →
               </a>
             </div>
-            <p className="mt-8 text-sm text-navy/60">📍 {site.locationLine}</p>
+            <p className="mt-8 text-sm text-navy/70">📍 {site.locationLine}</p>
           </div>
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl sm:aspect-[5/4] lg:aspect-[4/5]">
@@ -62,7 +62,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
             </div>
             <div className="absolute -bottom-5 left-4 right-4 rounded-2xl bg-white p-4 text-sm shadow-lg sm:left-auto sm:right-6 sm:w-72">
               <p className="font-semibold">🛒 New order on WhatsApp</p>
-              <p className="text-navy/60">Your chatbot replied in 3 seconds.</p>
+              <p className="text-navy/70">Your chatbot replied in 3 seconds.</p>
             </div>
           </div>
         </div>
@@ -183,7 +183,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
           </div>
           <form action="/quote" method="get" className="self-start rounded-2xl bg-white p-6 shadow-sm sm:p-8">
             <h3 className="text-xl font-semibold">Start your project</h3>
-            <p className="mt-1 text-sm text-navy/60">Tell us what you need. It takes about 2 minutes.</p>
+            <p className="mt-1 text-sm text-navy/70">Tell us what you need. It takes about 2 minutes.</p>
             <label htmlFor="contact-service" className="mt-5 block text-sm font-medium">
               What do you need help with?
             </label>

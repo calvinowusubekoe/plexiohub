@@ -31,7 +31,8 @@ describe('HomeSections', () => {
   it('uses icons, not emoji', () => {
     const { container } = render(<HomeSections projects={[]} faqs={faqs} />);
     expect(container.textContent).not.toMatch(EMOJI);
-    expect(container.querySelectorAll('svg.lucide').length).toBeGreaterThanOrEqual(15);
+    const services = container.querySelector('#services') as HTMLElement;
+    expect(services.querySelectorAll('svg.lucide')).toHaveLength(SERVICES.length);
   });
 
   it('renders FAQs as native disclosure widgets', () => {

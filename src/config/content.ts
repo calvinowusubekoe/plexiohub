@@ -3,7 +3,6 @@ import type { IconName } from '@/components/ui/Icon';
 export const content = {
   hero: {
     headline: 'Grow your business without the tech headache',
-    highlight: 'without the tech headache',
     subheadline:
       'PlexioHub builds websites, online shops, WhatsApp chatbots and automation for small and growing businesses — at prices that make sense.',
   },

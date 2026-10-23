@@ -17,7 +17,7 @@ describe('PortfolioGrid', () => {
   it('shows all projects by default and labels concepts', () => {
     render(<PortfolioGrid projects={projects} />);
     expect(screen.getAllByRole('article')).toHaveLength(3);
-    expect(screen.getByText('Concept')).toBeInTheDocument();
+    expect(screen.getByText(/Concept project/)).toBeInTheDocument();
   });
 
   it('filters by service and back to all', async () => {
@@ -28,10 +28,16 @@ describe('PortfolioGrid', () => {
     expect(screen.getAllByRole('article')).toHaveLength(3);
   });
 
-  it('disables filters that have no projects', () => {
+  it('only offers filters that have projects', () => {
     render(<PortfolioGrid projects={projects} />);
-    expect(screen.getByRole('button', { name: 'Automation' })).toBeDisabled();
+    expect(screen.queryByRole('button', { name: 'Automation' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Websites' })).toBeEnabled();
+  });
+
+  it('hides the filter bar when every project is in one category', () => {
+    render(<PortfolioGrid projects={[projects[0]]} />);
+    expect(screen.queryByRole('group', { name: /filter projects/i })).not.toBeInTheDocument();
+    expect(screen.getAllByRole('article')).toHaveLength(1);
   });
 
   it('limits cards and links to all work', () => {

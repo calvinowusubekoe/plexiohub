@@ -22,15 +22,15 @@ export function Header() {
   const wa = waLink(site.whatsappNumber, DEFAULT_WHATSAPP_MESSAGE);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur-md">
+      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Logo />
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex gap-5 text-sm font-medium text-navy/80 xl:gap-7">
+          <ul className="flex gap-6 text-[15px] font-medium text-ink-muted xl:gap-8">
             {NAV.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-brand">
+                <Link href={item.href} className="transition-colors hover:text-navy">
                   {item.label}
                 </Link>
               </li>
@@ -38,22 +38,23 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-4">
           {wa && (
             <a
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track('whatsapp_click')}
-              className="hidden items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-green-700 hover:underline md:inline-flex lg:hidden xl:inline-flex"
+              aria-label={`WhatsApp ${site.phone}`}
+              className="hidden items-center gap-2 whitespace-nowrap text-sm font-semibold text-navy transition-colors hover:text-green-700 md:inline-flex lg:hidden xl:inline-flex"
             >
-              <WhatsAppIcon className="h-4 w-4" />
-              <span>WhatsApp {site.phone}</span>
+              <WhatsAppIcon className="h-4 w-4 text-green-600" />
+              <span>{site.phone}</span>
             </a>
           )}
           <Link
             href="/quote"
-            className="whitespace-nowrap rounded-lg bg-brand px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-brand-dark sm:px-4"
+            className="whitespace-nowrap rounded-lg bg-brand px-3.5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-dark sm:px-5"
           >
             Get a Quote
           </Link>
@@ -73,7 +74,7 @@ export function Header() {
       </div>
 
       {open && (
-        <nav id="mobile-menu" aria-label="Mobile" className="border-t border-slate-200 bg-white lg:hidden">
+        <nav id="mobile-menu" aria-label="Mobile" className="border-t border-line bg-white lg:hidden">
           <ul className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-2">
             {NAV.map((item) => (
               <li key={item.href}>

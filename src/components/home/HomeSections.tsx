@@ -1,4 +1,4 @@
-import { ArrowRight, Bot, Check, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { content } from '@/config/content';
@@ -9,154 +9,104 @@ import type { Project } from '@/lib/data/projects';
 import { waLink } from '@/lib/whatsapp';
 import { WhatsAppIcon } from '@/components/layout/WhatsAppIcon';
 import { DEFAULT_WHATSAPP_MESSAGE } from '@/components/layout/WhatsAppFab';
-import { IconTile } from '@/components/ui/Icon';
+import { Icon } from '@/components/ui/Icon';
 import { PortfolioGrid } from '@/components/work/PortfolioGrid';
 import { FaqList } from './FaqList';
+import { HeroChat } from './HeroChat';
 
-function SectionHeading({
-  eyebrow,
-  title,
-  intro,
-  light = false,
-  center = false,
-}: {
-  eyebrow: string;
-  title: string;
-  intro?: string;
-  light?: boolean;
-  center?: boolean;
-}) {
+const container = 'mx-auto max-w-6xl px-4 sm:px-6 lg:px-8';
+const sectionY = 'py-20 sm:py-28';
+
+function SectionHeading({ title, intro, light = false }: { title: string; intro?: string; light?: boolean }) {
   return (
-    <div className={`mb-12 max-w-2xl ${center ? 'mx-auto text-center' : ''}`}>
-      <p className={`text-sm font-semibold ${light ? 'text-blue-200' : 'text-brand'}`}>{eyebrow}</p>
-      <h2 className={`mt-2 text-balance text-[1.75rem] font-bold leading-tight tracking-tight sm:text-4xl ${light ? 'text-white' : ''}`}>{title}</h2>
-      {intro && <p className={`mt-4 text-lg leading-relaxed ${light ? 'text-white/75' : 'text-navy/70'}`}>{intro}</p>}
+    <div className="mb-12 max-w-2xl sm:mb-14">
+      <h2 className={`text-balance text-[1.75rem] font-bold leading-tight tracking-tight sm:text-[2.5rem] ${light ? 'text-white' : 'text-navy'}`}>
+        {title}
+      </h2>
+      {intro && <p className={`mt-4 text-lg leading-relaxed ${light ? 'text-white/75' : 'text-ink-muted'}`}>{intro}</p>}
     </div>
   );
 }
 
-const HERO_POINTS = ['Clear, upfront quotes', 'Built for phones', 'Support after launch'];
+const HERO_FACTS = ['Clear quote before work starts', 'Built for phones first', 'Support after launch'];
 
 export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Faq[] }) {
-  const [before] = content.hero.headline.split(content.hero.highlight);
   const wa = waLink(site.whatsappNumber, DEFAULT_WHATSAPP_MESSAGE);
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-surface">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-blue-100/70 blur-3xl"
-        />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:px-8">
+      {/* Hero: the one bold moment. A real-looking WhatsApp exchange over a real shop. */}
+      <section className="border-b border-line bg-surface">
+        <div className={`${container} grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:gap-14 lg:py-24`}>
           <div>
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1 text-xs font-semibold text-brand-dark">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden />
-              Digital solutions for growing businesses
-            </p>
-            <h1 className="text-balance text-[2.15rem] font-extrabold leading-[1.12] tracking-tight sm:text-5xl xl:text-[3.4rem]">
-              {before}
-              <span className="text-brand">{content.hero.highlight}</span>
+            <h1 className="text-balance text-[2.25rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-navy sm:text-[3.25rem] lg:text-[3.1rem] xl:text-[3.5rem]">
+              {content.hero.headline}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy/75">{content.hero.subheadline}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Link
-                href="/quote"
-                className="rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white shadow-sm shadow-brand/30 transition hover:bg-brand-dark"
-              >
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">{content.hero.subheadline}</p>
+            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <Link href="/quote" className="rounded-lg bg-brand px-6 py-3.5 font-semibold text-white transition-colors hover:bg-brand-dark">
                 Get a Quote
               </Link>
-              <a href="#work" className="group inline-flex items-center gap-1.5 font-semibold text-navy hover:text-brand">
-                View Our Work
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
+              <a href="#work" className="font-semibold text-navy underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:decoration-brand">
+                View our work
               </a>
             </div>
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-navy/75">
-              {HERO_POINTS.map((p) => (
-                <li key={p} className="inline-flex items-center gap-1.5">
-                  <Check className="h-4 w-4 text-brand" strokeWidth={2.5} aria-hidden />
-                  {p}
+            <ul className="mt-12 grid max-w-xl gap-3 border-t border-line pt-6 text-sm text-ink-muted sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-line">
+              {HERO_FACTS.map((f) => (
+                <li key={f} className="font-medium sm:px-5 sm:first:pl-0">
+                  {f}
                 </li>
               ))}
             </ul>
-            <p className="mt-6 inline-flex items-center gap-1.5 text-sm text-navy/70">
-              <MapPin className="h-4 w-4" aria-hidden />
-              {site.locationLine}
-            </p>
           </div>
 
-          <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5 sm:aspect-[5/4] lg:aspect-[4/5]">
+          <div className="relative mx-auto flex w-full max-w-xl flex-col lg:mb-12 lg:max-w-none">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[5/4] lg:ml-auto lg:aspect-[4/5] lg:w-[86%]">
               <Image
                 src="/images/hero.jpg"
                 alt="A shop owner serving a customer in her store"
                 fill
                 priority
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover object-[55%_center]"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover object-[58%_18%]"
               />
             </div>
-            <div className="absolute -bottom-6 left-4 right-4 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/5 sm:left-auto sm:right-6 sm:w-80">
-              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-50 text-green-700">
-                <Bot className="h-5 w-5" aria-hidden />
-              </span>
-              <div className="text-sm">
-                <p className="font-semibold">New order on WhatsApp</p>
-                <p className="text-navy/70">Your chatbot replied in 3 seconds</p>
-              </div>
-            </div>
+            <HeroChat className="relative -mt-12 ml-auto w-[90%] sm:w-80 lg:absolute lg:-bottom-12 lg:left-0 lg:mt-0 lg:ml-0 lg:w-[19rem]" />
           </div>
         </div>
       </section>
 
-      {/* Problems */}
+      {/* Problems: a plain problem / fix list reads as organised, not decorated. */}
       <section id="problems" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <SectionHeading
-            eyebrow="Problems we solve"
-            title="Sound familiar?"
-            intro="If any of these describe your business, we can help."
-          />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={`${container} ${sectionY}`}>
+          <SectionHeading title="Sound familiar?" intro="If any of these describe your business, we can help." />
+          <dl className="border-t border-line">
             {content.problems.map((p) => (
-              <div key={p.title} className="flex flex-col rounded-2xl border border-slate-200 p-6">
-                <IconTile name={p.icon} />
-                <h3 className="mt-5 flex-1 font-semibold leading-snug">{p.title}</h3>
-                <p className="mt-4 flex gap-2 border-t border-slate-100 pt-4 text-sm leading-relaxed text-navy/75">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} aria-hidden />
-                  <span>{p.fix}</span>
-                </p>
+              <div key={p.title} className="grid gap-2 border-b border-line py-7 md:grid-cols-[1fr_1.15fr] md:gap-12">
+                <dt className="text-lg font-semibold leading-snug text-navy">{p.title}</dt>
+                <dd className="leading-relaxed text-ink-muted">{p.fix}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
       {/* Services */}
-      <section id="services" className="scroll-mt-20 bg-surface">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <SectionHeading
-            eyebrow="Services"
-            title="What we build for you"
-            intro="Practical digital tools that save you time and bring in customers."
-          />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <section id="services" className="scroll-mt-20 border-y border-line bg-surface">
+        <div className={`${container} ${sectionY}`}>
+          <SectionHeading title="What we build for you" intro="Practical digital tools that save you time and bring in customers." />
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s) => (
-              <div
-                key={s.slug}
-                className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-7 transition hover:border-brand/40 hover:shadow-md"
-              >
-                <IconTile name={s.icon} />
-                <h3 className="mt-5 text-lg font-semibold">{s.name}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-navy/75">{s.summary}</p>
+              <div key={s.slug} className="flex flex-col bg-white p-7 sm:p-8">
+                <Icon name={s.icon} className="h-6 w-6 text-brand" />
+                <h3 className="mt-6 text-lg font-semibold text-navy">{s.name}</h3>
+                <p className="mt-2 flex-1 leading-relaxed text-ink-muted">{s.summary}</p>
                 <Link
                   href={`/services/${s.slug}`}
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand"
+                  className="mt-6 self-start text-sm font-semibold text-brand underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:decoration-brand"
                   aria-label={`Learn more about ${s.name}`}
                 >
                   Learn more
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
                 </Link>
               </div>
             ))}
@@ -164,124 +114,113 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
         </div>
       </section>
 
-      {/* Process */}
+      {/* Process: a real sequence, so numbered. */}
       <section id="how-we-work" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <SectionHeading eyebrow="How we work" title="Simple, clear and with you all the way" />
-          <div className="relative">
-            <div aria-hidden className="absolute left-5 right-5 top-5 hidden h-px bg-slate-200 xl:block" />
-            <ol className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-6">
-              {content.process.map((step, i) => (
-                <li key={step.title} className="relative">
-                  <span className="relative flex h-10 w-10 items-center justify-center rounded-full border border-blue-200 bg-white text-sm font-bold text-brand">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="mt-4 font-semibold">{step.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-navy/75">{step.line}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
+        <div className={`${container} ${sectionY}`}>
+          <SectionHeading title="How we work with you" intro="Six clear steps, and you know what happens next at every one." />
+          <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {content.process.map((step, i) => (
+              <li key={step.title} className="border-t-2 border-line pt-5 first:border-brand">
+                <span className="text-sm font-semibold text-brand">Step {i + 1}</span>
+                <h3 className="mt-1 text-lg font-semibold text-navy">{step.title}</h3>
+                <p className="mt-2 leading-relaxed text-ink-muted">{step.line}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       {/* Work */}
-      <section id="work" className="scroll-mt-20 bg-surface">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <SectionHeading
-            eyebrow="Our work"
-            title="Projects we've built"
-            intro="What each project does, and the problem it solves."
-          />
+      <section id="work" className="scroll-mt-20 border-y border-line bg-surface">
+        <div className={`${container} ${sectionY}`}>
+          <SectionHeading title="Projects we've built" intro="What each project does, and the problem it solves." />
           <PortfolioGrid projects={projects} limit={6} />
         </div>
       </section>
 
       {/* Why us */}
       <section id="why-us" className="scroll-mt-20 bg-navy text-white">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <SectionHeading eyebrow="Why PlexioHub" title="Why businesses choose us" light />
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-8">
+        <div className={`${container} ${sectionY} grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20`}>
+          <div>
+            <SectionHeading
+              title="Why businesses choose PlexioHub"
+              intro="You work directly with the person building your project, from the first message to long after launch."
+              light
+            />
+          </div>
+          <dl className="border-t border-white/15">
             {content.whyUs.map((w) => (
-              <div key={w.title}>
-                <IconTile name={w.icon} dark />
-                <h3 className="mt-5 font-semibold">{w.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/75">{w.line}</p>
+              <div key={w.title} className="grid gap-1 border-b border-white/15 py-6 sm:grid-cols-[14rem_1fr] sm:gap-8">
+                <dt className="font-semibold">{w.title}</dt>
+                <dd className="leading-relaxed text-white/75">{w.line}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
       {/* FAQ */}
       <section id="faq" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <SectionHeading eyebrow="FAQ" title="Questions we often get" center />
+        <div className={`${container} ${sectionY} grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20`}>
+          <div>
+            <SectionHeading title="Questions we often get" />
+            {wa && (
+              <p className="-mt-6 text-ink-muted">
+                Something else?{' '}
+                <a href={wa} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand underline decoration-2 underline-offset-4">
+                  Ask us on WhatsApp
+                </a>
+              </p>
+            )}
+          </div>
           <FaqList faqs={faqs} />
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="scroll-mt-20 bg-surface">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-2 lg:px-8">
+      <section id="contact" className="scroll-mt-20 border-t border-line bg-surface">
+        <div className={`${container} ${sectionY} grid gap-12 lg:grid-cols-2 lg:gap-20`}>
           <div>
             <SectionHeading
-              eyebrow="Contact"
               title="Let's build something for your business"
               intro="Pick whichever is easiest for you. We usually reply within 24 hours."
             />
-            <ul className="space-y-4">
+            <ul className="divide-y divide-line border-y border-line">
               {wa && (
                 <li>
-                  <a href={wa} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4">
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-green-50 text-green-700 ring-1 ring-green-100">
-                      <WhatsAppIcon />
-                    </span>
-                    <span>
-                      <span className="block text-sm text-navy/70">WhatsApp</span>
-                      <span className="font-semibold group-hover:text-brand">Chat on WhatsApp</span>
-                    </span>
+                  <a href={wa} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 py-5">
+                    <WhatsAppIcon className="h-5 w-5 text-green-700" />
+                    <span className="w-24 text-sm text-ink-muted">WhatsApp</span>
+                    <span className="font-semibold text-navy group-hover:text-brand">{site.phone}</span>
                   </a>
                 </li>
               )}
               <li>
-                <a href={`mailto:${site.email}`} className="group flex items-center gap-4">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-brand ring-1 ring-blue-100">
-                    <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden />
-                  </span>
-                  <span>
-                    <span className="block text-sm text-navy/70">Email</span>
-                    <span className="font-semibold group-hover:text-brand">{site.email}</span>
-                  </span>
+                <a href={`mailto:${site.email}`} className="group flex items-center gap-4 py-5">
+                  <Mail className="h-5 w-5 text-brand" strokeWidth={1.75} aria-hidden />
+                  <span className="w-24 text-sm text-ink-muted">Email</span>
+                  <span className="break-all font-semibold text-navy group-hover:text-brand">{site.email}</span>
                 </a>
               </li>
               <li>
-                <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="group flex items-center gap-4">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-brand ring-1 ring-blue-100">
-                    <Phone className="h-5 w-5" strokeWidth={1.75} aria-hidden />
-                  </span>
-                  <span>
-                    <span className="block text-sm text-navy/70">Phone</span>
-                    <span className="font-semibold group-hover:text-brand">{site.phone}</span>
-                  </span>
+                <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="group flex items-center gap-4 py-5">
+                  <Phone className="h-5 w-5 text-brand" strokeWidth={1.75} aria-hidden />
+                  <span className="w-24 text-sm text-ink-muted">Phone</span>
+                  <span className="font-semibold text-navy group-hover:text-brand">{site.phone}</span>
                 </a>
               </li>
             </ul>
           </div>
-          <form
-            action="/quote"
-            method="get"
-            className="self-start rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
-          >
-            <h3 className="text-xl font-semibold">Start your project</h3>
-            <p className="mt-1 text-sm text-navy/70">Tell us what you need. It takes about 2 minutes.</p>
-            <label htmlFor="contact-service" className="mt-6 block text-sm font-medium">
+          <form action="/quote" method="get" className="self-start rounded-2xl border border-line bg-white p-6 sm:p-9">
+            <h3 className="text-xl font-semibold text-navy">Start your project</h3>
+            <p className="mt-1 text-ink-muted">Tell us what you need. It takes about 2 minutes.</p>
+            <label htmlFor="contact-service" className="mt-7 block text-sm font-semibold text-navy">
               What do you need help with?
             </label>
             <select
               id="contact-service"
               name="service"
-              className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-3"
+              className="mt-2 w-full rounded-lg border border-line bg-white px-3 py-3 text-navy focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25"
               defaultValue=""
             >
               <option value="">Not sure yet</option>
@@ -291,12 +230,8 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
                 </option>
               ))}
             </select>
-            <button
-              type="submit"
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3.5 font-semibold text-white transition hover:bg-brand-dark"
-            >
+            <button type="submit" className="mt-5 w-full rounded-lg bg-brand px-5 py-3.5 font-semibold text-white transition-colors hover:bg-brand-dark">
               Continue to quote request
-              <ArrowRight className="h-4 w-4" aria-hidden />
             </button>
           </form>
         </div>

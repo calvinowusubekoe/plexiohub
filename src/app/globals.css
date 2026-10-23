@@ -4,7 +4,9 @@
   --color-navy: #0F1E4A;
   --color-brand: #2563EB;
   --color-brand-dark: #1D4ED8;
-  --color-surface: #F5F7FB;
+  --color-surface: #F3F5F9;
+  --color-line: #DDE3EC;
+  --color-ink-muted: #4A5675;
   --color-whatsapp: #25D366;
   --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }

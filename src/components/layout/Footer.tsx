@@ -8,7 +8,7 @@ export function Footer() {
   const wa = waLink(site.whatsappNumber);
   return (
     <footer className="bg-navy text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:px-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:px-8">
         <div className="space-y-3">
           <Logo light />
           <p className="font-semibold">{site.tagline}</p>
@@ -18,7 +18,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/75">Services</h2>
+          <h2 className="mb-4 text-sm font-semibold text-white">Services</h2>
           <ul className="space-y-2 text-sm">
             {SERVICES.map((s) => (
               <li key={s.slug}>
@@ -31,7 +31,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/75">Contact</h2>
+          <h2 className="mb-4 text-sm font-semibold text-white">Contact</h2>
           <ul className="space-y-2 text-sm text-white/85">
             {wa && (
               <li>
@@ -54,7 +54,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/75">Follow us</h2>
+          <h2 className="mb-4 text-sm font-semibold text-white">Follow us</h2>
           <ul className="space-y-2 text-sm">
             {site.socials.map((s) => (
               <li key={s.label}>

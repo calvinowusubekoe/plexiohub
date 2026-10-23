@@ -66,7 +66,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-2 text-xl font-semibold text-navy">Contact</h2>
           <p>
-            PlexioHub, {site.locationLine}. Email: {site.email}. Phone/WhatsApp: {site.phone}.
+            PlexioHub. {site.locationLine} Email: {site.email}. Phone/WhatsApp: {site.phone}.
           </p>
         </section>
       </div>

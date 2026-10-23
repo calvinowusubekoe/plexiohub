@@ -15,9 +15,8 @@ export default async function WorkPage() {
   const projects = await getPublishedProjects();
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-      <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand">Our work</p>
-      <h1 className="mt-2 text-4xl font-extrabold tracking-tight">Projects we&apos;ve built</h1>
-      <p className="mt-3 mb-10 max-w-2xl text-lg text-navy/70">What each project does, and the problem it solves for the business.</p>
+      <h1 className="text-balance text-[2.1rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-navy sm:text-5xl">Projects we&apos;ve built</h1>
+      <p className="mt-4 mb-12 max-w-2xl text-lg leading-relaxed text-ink-muted">What each project does, and the problem it solves for the business.</p>
       <PortfolioGrid projects={projects} />
     </section>
   );

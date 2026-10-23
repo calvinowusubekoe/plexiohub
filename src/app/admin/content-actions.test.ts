@@ -8,7 +8,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'admin', email: 'founder@plexiohub.com' } } }) } }),
+  createServerClient: async () => ({ auth: { getClaims: async () => ({ data: { claims: { sub: 'admin', email: 'founder@plexiohub.com' } }, error: null }) } }),
 }));
 vi.mock('next/navigation', () => ({ redirect: vi.fn() }));
 vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidatePath }));

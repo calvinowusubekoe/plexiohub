@@ -13,12 +13,16 @@ function isAdminEmail(email: string | undefined): boolean {
   return Boolean(admin && email && email.trim().toLowerCase() === admin);
 }
 
-/** Every admin page and action starts here: only the signed-in user whose email is ADMIN_EMAIL gets in. */
-export async function requireAdmin() {
+/**
+ * Every admin page and action starts here: only the signed-in user whose email is ADMIN_EMAIL gets in.
+ * getClaims verifies the login token's signature locally (no round trip to Supabase), so admin pages stay fast.
+ */
+export async function requireAdmin(): Promise<{ email: string }> {
   const supabase = await createServerClient();
-  const { data } = await supabase.auth.getUser();
-  if (!data.user || !isAdminEmail(data.user.email)) redirect('/admin/login');
-  return data.user;
+  const { data } = await supabase.auth.getClaims();
+  const email = typeof data?.claims?.email === 'string' ? data.claims.email : undefined;
+  if (!email || !isAdminEmail(email)) redirect('/admin/login');
+  return { email };
 }
 
 export async function updateQuoteStatus(id: string, status: QuoteStatus): Promise<void> {

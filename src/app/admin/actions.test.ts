@@ -7,7 +7,15 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: mocks.user } }), signOut: vi.fn() } }),
+  createServerClient: async () => ({
+    auth: {
+      getClaims: async () => ({ data: mocks.user ? { claims: { sub: mocks.user.id, email: mocks.user.email } } : null, error: null }),
+      getUser: async () => {
+        throw new Error('getUser makes a network round trip; use getClaims');
+      },
+      signOut: vi.fn(),
+    },
+  }),
 }));
 vi.mock('next/navigation', () => ({
   redirect: (to: string) => {

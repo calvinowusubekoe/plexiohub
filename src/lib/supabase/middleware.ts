@@ -17,6 +17,7 @@ export async function updateSession(request: NextRequest) {
       },
     },
   });
-  const { data } = await supabase.auth.getUser();
-  return { response, user: data.user };
+  // Verifies the token locally (and refreshes it when needed) instead of asking Supabase on every request.
+  const { data } = await supabase.auth.getClaims();
+  return { response, user: data?.claims ? { id: data.claims.sub, email: data.claims.email } : null };
 }

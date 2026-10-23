@@ -1,18 +1,18 @@
 'use client';
 
+import { ArrowDown, ArrowUp, Pencil, Trash2 } from 'lucide-react';
 import { useState, useTransition } from 'react';
 import { moveFaq, removeFaq, saveFaqAction } from '@/app/admin/(protected)/actions';
 import type { Faq } from '@/lib/data/faqs';
-
-const input = 'mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5';
-const btn = 'rounded-md border border-slate-300 px-2.5 py-1.5 text-sm hover:border-brand disabled:opacity-40';
+import { EmptyState, btn, field, label } from './ui';
 
 function FaqForm({ faq, sortOrder, onDone }: { faq?: Faq; sortOrder: number; onDone?: () => void }) {
   const [pending, start] = useTransition();
   const [error, setError] = useState('');
+  const prefix = faq ? `faq-${faq.id}` : 'faq-new';
   return (
     <form
-      className="space-y-3"
+      className="space-y-4"
       onSubmit={(e) => {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
@@ -28,18 +28,29 @@ function FaqForm({ faq, sortOrder, onDone }: { faq?: Faq; sortOrder: number; onD
     >
       {faq && <input type="hidden" name="id" value={faq.id} />}
       <input type="hidden" name="sortOrder" value={faq?.sortOrder ?? sortOrder} />
-      <label className="block text-sm font-medium">
-        Question
-        <input name="question" defaultValue={faq?.question} maxLength={300} className={input} />
-      </label>
-      <label className="block text-sm font-medium">
-        Answer
-        <textarea name="answer" defaultValue={faq?.answer} rows={4} maxLength={3000} className={input} />
-      </label>
-      {error && <p className="text-sm font-medium text-red-600">{error}</p>}
-      <button type="submit" disabled={pending} className="rounded-lg bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark disabled:opacity-70">
-        {pending ? 'Saving…' : faq ? 'Save' : 'Add question'}
-      </button>
+      <div>
+        <label htmlFor={`${prefix}-q`} className={label}>
+          Question
+        </label>
+        <input id={`${prefix}-q`} name="question" defaultValue={faq?.question} maxLength={300} className={field} />
+      </div>
+      <div>
+        <label htmlFor={`${prefix}-a`} className={label}>
+          Answer
+        </label>
+        <textarea id={`${prefix}-a`} name="answer" defaultValue={faq?.answer} rows={4} maxLength={3000} className={field} />
+      </div>
+      {error && <p className="text-sm font-medium text-red-700">{error}</p>}
+      <div className="flex gap-2">
+        <button type="submit" disabled={pending} className={btn.primary}>
+          {pending ? 'Saving…' : faq ? 'Save changes' : 'Add question'}
+        </button>
+        {faq && onDone && (
+          <button type="button" onClick={onDone} className={btn.secondary}>
+            Cancel
+          </button>
+        )}
+      </div>
     </form>
   );
 }
@@ -49,44 +60,68 @@ export function FaqEditor({ faqs }: { faqs: Faq[] }) {
   const [pending, start] = useTransition();
 
   return (
-    <div className="space-y-8">
-      <ul className="divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 bg-white">
-        {faqs.map((f, i) => (
-          <li key={f.id} className="p-4">
-            {editing === f.id ? (
-              <FaqForm faq={f} sortOrder={i} onDone={() => setEditing(null)} />
-            ) : (
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="max-w-2xl">
-                  <p className="font-semibold">{f.question}</p>
-                  <p className="mt-1 whitespace-pre-line text-sm text-navy/70">{f.answer}</p>
+    <div className="grid gap-8 xl:grid-cols-[1fr_22rem] xl:items-start">
+      {faqs.length === 0 ? (
+        <EmptyState title="No questions yet.">Add your first question using the form.</EmptyState>
+      ) : (
+        <ol className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-white">
+          {faqs.map((f, i) => (
+            <li key={f.id} className="px-5 py-5">
+              {editing === f.id ? (
+                <FaqForm faq={f} sortOrder={i} onDone={() => setEditing(null)} />
+              ) : (
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex max-w-2xl gap-4">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface text-xs font-semibold tabular-nums text-ink-muted ring-1 ring-line">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <p className="font-semibold text-navy">{f.question}</p>
+                      <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-ink-muted">{f.answer}</p>
+                    </div>
+                  </div>
+                  <div className="flex shrink-0 gap-1.5 pl-10 sm:pl-0">
+                    <button type="button" className={btn.icon} disabled={pending || i === 0} aria-label="Move up" title="Move up" onClick={() => start(() => moveFaq(f.id, 'up'))}>
+                      <ArrowUp className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      className={btn.icon}
+                      disabled={pending || i === faqs.length - 1}
+                      aria-label="Move down"
+                      title="Move down"
+                      onClick={() => start(() => moveFaq(f.id, 'down'))}
+                    >
+                      <ArrowDown className="h-4 w-4" />
+                    </button>
+                    <button type="button" className={btn.icon} aria-label={`Edit: ${f.question}`} title="Edit" onClick={() => setEditing(f.id)}>
+                      <Pencil className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      className={`${btn.icon} hover:border-red-200 hover:text-red-700`}
+                      disabled={pending}
+                      aria-label={`Delete: ${f.question}`}
+                      title="Delete"
+                      onClick={() => {
+                        if (confirm('Delete this question?')) start(() => removeFaq(f.id));
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <button type="button" className={btn} disabled={pending || i === 0} aria-label="Move up" onClick={() => start(() => moveFaq(f.id, 'up'))}>↑</button>
-                  <button type="button" className={btn} disabled={pending || i === faqs.length - 1} aria-label="Move down" onClick={() => start(() => moveFaq(f.id, 'down'))}>↓</button>
-                  <button type="button" className={btn} onClick={() => setEditing(f.id)}>Edit</button>
-                  <button
-                    type="button"
-                    className={`${btn} text-red-600`}
-                    disabled={pending}
-                    onClick={() => {
-                      if (confirm('Delete this question?')) start(() => removeFaq(f.id));
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            )}
-          </li>
-        ))}
-        {faqs.length === 0 && <li className="p-8 text-center text-navy/70">No questions yet.</li>}
-      </ul>
+              )}
+            </li>
+          ))}
+        </ol>
+      )}
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
-        <h2 className="mb-3 text-lg font-semibold">Add a question</h2>
+      <section className="rounded-xl border border-line bg-white p-5 xl:sticky xl:top-10">
+        <h2 className="font-semibold text-navy">Add a question</h2>
+        <p className="mb-4 mt-0.5 text-sm text-ink-muted">It appears at the end of the list.</p>
         <FaqForm sortOrder={faqs.length} />
-      </div>
+      </section>
     </div>
   );
 }

@@ -2,9 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { btn, field, label } from '@/components/admin/ui';
 import { createBrowserClient } from '@/lib/supabase/browser';
-
-const input = 'mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30';
 
 export function LoginForm() {
   const router = useRouter();
@@ -16,31 +15,44 @@ export function LoginForm() {
     const form = new FormData(e.currentTarget);
     setBusy(true);
     setError('');
-    const { error: signInError } = await createBrowserClient().auth.signInWithPassword({
-      email: String(form.get('email')),
-      password: String(form.get('password')),
-    });
-    setBusy(false);
-    if (signInError) {
-      setError('Email or password is incorrect.');
-      return;
+    try {
+      const { error: signInError } = await createBrowserClient().auth.signInWithPassword({
+        email: String(form.get('email')),
+        password: String(form.get('password')),
+      });
+      if (signInError) {
+        setError('Email or password is incorrect.');
+        return;
+      }
+      router.replace('/admin');
+      router.refresh();
+    } catch {
+      setError('Could not reach the server. Check your connection and try again.');
+    } finally {
+      setBusy(false);
     }
-    router.replace('/admin');
-    router.refresh();
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-6 space-y-4">
+    <form onSubmit={onSubmit} className="mt-8 space-y-5">
       <div>
-        <label htmlFor="email" className="text-sm font-medium">Email</label>
-        <input id="email" name="email" type="email" autoComplete="email" required className={input} />
+        <label htmlFor="email" className={label}>
+          Email
+        </label>
+        <input id="email" name="email" type="email" autoComplete="email" required className={field} />
       </div>
       <div>
-        <label htmlFor="password" className="text-sm font-medium">Password</label>
-        <input id="password" name="password" type="password" autoComplete="current-password" required className={input} />
+        <label htmlFor="password" className={label}>
+          Password
+        </label>
+        <input id="password" name="password" type="password" autoComplete="current-password" required className={field} />
       </div>
-      {error && <p className="text-sm font-medium text-red-600" role="alert">{error}</p>}
-      <button type="submit" disabled={busy} className="w-full rounded-lg bg-brand py-2.5 font-semibold text-white hover:bg-brand-dark disabled:opacity-70">
+      {error && (
+        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-700" role="alert">
+          {error}
+        </p>
+      )}
+      <button type="submit" disabled={busy} className={`${btn.primary} w-full py-3`}>
         {busy ? 'Signing in…' : 'Sign in'}
       </button>
     </form>

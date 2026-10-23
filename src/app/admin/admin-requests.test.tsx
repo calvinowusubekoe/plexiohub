@@ -40,6 +40,13 @@ describe('RequestTable', () => {
     expect(screen.getByRole('link', { name: 'Newest New' })).toBeInTheDocument();
   });
 
+  it('searches by client or business name', async () => {
+    render(<RequestTable rows={[...rows, row({ id: 'd', name: 'Kofi', business_name: 'Kente House' })]} />);
+    await userEvent.type(screen.getByRole('searchbox', { name: /search requests/i }), 'kente');
+    expect(screen.getByRole('link', { name: 'Kofi' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Newest New' })).not.toBeInTheDocument();
+  });
+
   it('shows an empty state', () => {
     render(<RequestTable rows={[]} />);
     expect(screen.getByText('No quote requests yet.')).toBeInTheDocument();

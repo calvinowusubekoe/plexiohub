@@ -12,7 +12,7 @@ export function organizationJsonLd() {
     telephone: site.phone,
     email: site.email,
     logo: `${site.url}/opengraph-image`,
-    image: `${site.url}/images/hero.jpg`,
+    image: `${site.url}/opengraph-image`,
     description:
       'Affordable websites, WhatsApp chatbots, business automation, e-commerce, IT support and graphic design for businesses in Ghana and worldwide.',
     address: { '@type': 'PostalAddress', addressCountry: 'GH' },

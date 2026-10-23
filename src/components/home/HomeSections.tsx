@@ -1,5 +1,4 @@
 import { Mail, Phone } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { content } from '@/config/content';
 import { SERVICES } from '@/config/services';
@@ -12,7 +11,7 @@ import { DEFAULT_WHATSAPP_MESSAGE } from '@/components/layout/WhatsAppFab';
 import { Icon } from '@/components/ui/Icon';
 import { PortfolioGrid } from '@/components/work/PortfolioGrid';
 import { FaqList } from './FaqList';
-import { HeroChat } from './HeroChat';
+import { HeroVisual } from './HeroVisual';
 
 const container = 'mx-auto max-w-6xl px-4 sm:px-6 lg:px-8';
 const sectionY = 'py-20 sm:py-28';
@@ -35,9 +34,9 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
 
   return (
     <>
-      {/* Hero: the one bold moment. A real-looking WhatsApp exchange over a real shop. */}
+      {/* Hero: the one bold moment. The three things PlexioHub builds, shown working together. */}
       <section className="border-b border-line bg-surface">
-        <div className={`${container} grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:gap-14 lg:py-24`}>
+        <div className={`${container} grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.08fr_1fr] lg:gap-12 xl:gap-16 lg:py-24`}>
           <div>
             <h1 className="text-balance text-[2.25rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-navy sm:text-[3.25rem] lg:text-[3.1rem] xl:text-[3.5rem]">
               {content.hero.headline}
@@ -60,19 +59,7 @@ export function HomeSections({ projects, faqs }: { projects: Project[]; faqs: Fa
             </ul>
           </div>
 
-          <div className="relative mx-auto flex w-full max-w-xl flex-col lg:mb-12 lg:max-w-none">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[5/4] lg:ml-auto lg:aspect-[4/5] lg:w-[86%]">
-              <Image
-                src="/images/hero.jpg"
-                alt="A shop owner serving a customer in her store"
-                fill
-                priority
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover object-[58%_18%]"
-              />
-            </div>
-            <HeroChat className="relative -mt-12 ml-auto w-[90%] sm:w-80 lg:absolute lg:-bottom-12 lg:left-0 lg:mt-0 lg:ml-0 lg:w-[19rem]" />
-          </div>
+          <HeroVisual />
         </div>
       </section>
 

@@ -88,7 +88,7 @@ Note: public pages are pre-built at deploy time from Supabase. If the project is
 
 ## Content you'll want to replace
 - **Logo:** `src/components/layout/Logo.tsx` is a text wordmark. Swap in your SVG/PNG logo.
-- **Hero photo:** `public/images/hero.jpg` is a free Unsplash photo by [@mkumbwajr](https://unsplash.com/@mkumbwajr) ([source](https://unsplash.com/photos/H1KbBGUs4bM)). The shop signs show Tanzanian shilling prices, so a photo taken in Ghana would fit better.
+- **Hero illustration:** `src/components/home/HeroVisual.tsx` draws the browser, WhatsApp and automation example in code. Edit the example text there (for example the salon conversation).
 - **Social links:** placeholders in `src/config/site.ts`.
 - **Copy:** services, problems, process and "why us" text live in `src/config/services.ts` and `src/config/content.ts`. Budget ranges are in `src/config/budget.ts`.
 - **Palette Pleasers:** before featuring it, fix that site's placeholder footer ("Your Restaurant", dummy phone/address) and the sections that only appear after scrolling.

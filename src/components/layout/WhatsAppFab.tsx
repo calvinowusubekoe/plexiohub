@@ -1,5 +1,7 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+import { getService } from '@/config/services';
 import { site } from '@/config/site';
 import { track } from '@/lib/analytics';
 import { waLink } from '@/lib/whatsapp';
@@ -7,8 +9,16 @@ import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const DEFAULT_WHATSAPP_MESSAGE = "Hi PlexioHub, I'd like to talk about a project.";
 
-export function WhatsAppFab({ message = DEFAULT_WHATSAPP_MESSAGE }: { message?: string }) {
-  const href = waLink(site.whatsappNumber, message);
+/** On /services/<slug>, the prefilled message names that service. */
+function messageForPath(pathname: string | null): string {
+  const slug = pathname?.match(/^\/services\/([^/]+)/)?.[1];
+  const service = slug ? getService(slug) : undefined;
+  return service ? `Hi PlexioHub, I'm interested in ${service.name}.` : DEFAULT_WHATSAPP_MESSAGE;
+}
+
+export function WhatsAppFab({ message }: { message?: string }) {
+  const pathname = usePathname();
+  const href = waLink(site.whatsappNumber, message ?? messageForPath(pathname));
   if (!href) return null;
   return (
     <a

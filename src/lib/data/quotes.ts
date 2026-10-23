@@ -1,8 +1,9 @@
 import type { BudgetCurrency, PreferredContact } from '@/config/budget';
 import type { ServiceSlug } from '@/config/services';
 
-export type QuoteStatus = 'new' | 'contacted' | 'quoted' | 'won' | 'lost';
-export const QUOTE_STATUSES: QuoteStatus[] = ['new', 'contacted', 'quoted', 'won', 'lost'];
+import type { QuoteStatus } from './quote-status';
+
+export { QUOTE_STATUSES, type QuoteStatus } from './quote-status';
 
 /** Validated quote data as stored. QuoteSubmission (lib/quote/schema) is assignable to this. */
 export type QuoteInput = {
